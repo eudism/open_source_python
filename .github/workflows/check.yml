@@ -1,0 +1,21 @@
+name: checking
+on: 
+  push:
+  pull_request:
+jobs:
+ check:
+  runs-on: windows 11
+  strategy:
+   matrix:
+    python-version: ["3.8", "3.9", "3.10"]
+  steps:
+  - uses: actions/checkout@v3
+  - name: Set up Pyhton ${{matrix.python-version}}
+    uses: actions/setup-pyrhon@v4
+    with:
+     python-version: ${{matrix.python-version}}
+  - name: Checking
+    run:
+     python -m pip install -upgrade pip
+     python -m pip install tox
+     tox
